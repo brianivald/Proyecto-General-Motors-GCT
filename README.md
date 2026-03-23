@@ -4,9 +4,7 @@ Este es el repositorio base para el Sistema de Gestión de Carga de Trabajo, des
 
 ---
 
-## 🚀 Despliegue Rápido (Recomendado Automático)
-
-La forma más rápida de levantar el ecosistema completo con recarga en caliente (Hot Reload) y bases de datos integradas es usar Docker.
+## Despliegue Rápido por Docker
 
 ### Requisitos previos
 - Docker Desktop y/o Docker Compose instalados.
@@ -29,7 +27,7 @@ La forma más rápida de levantar el ecosistema completo con recarga en caliente
    ```bash
    docker compose exec backend python manage.py createsuperuser
    ```
-5. ¡Listo! Abre tu navegador:
+5. Abre el navegador:
    - **Sistema (Dashboard React)**: [http://localhost:5173](http://localhost:5173)
    - **Administración DB Django**: [http://localhost:8000/admin](http://localhost:8000/admin)
    - **API REST Cruda**: [http://localhost:8000/api/](http://localhost:8000/api/)
