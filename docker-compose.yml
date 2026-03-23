@@ -1,0 +1,50 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: gm_sgct_db
+    restart: always
+    environment:
+      POSTGRES_DB: gm_sgct
+      POSTGRES_USER: gm_admin
+      POSTGRES_PASSWORD: supersecretpassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: gm_sgct_backend
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DEBUG=1
+      - DB_NAME=gm_sgct
+      - DB_USER=gm_admin
+      - DB_PASSWORD=supersecretpassword
+      - DB_HOST=db
+      - DB_PORT=5432
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: gm_sgct_frontend
+    restart: always
+    command: npm run dev -- --host 0.0.0.0
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
